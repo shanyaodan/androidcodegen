@@ -1,0 +1,4 @@
+
+1.把jar放到eclipse 的plugin里面
+2.重启eclipse
+3.将andgen.properties放到eclipse根目录并配置路径
