@@ -12,22 +12,30 @@
                label="androidxml"
                path="additions"
                id="FilePlugin.menu1">
-            <separator
+               
+                 <separator
                   name="group1">
             </separator>
          </menu>
-         <action
-               label="genActivity"
-               class="com.fileplugin.popup.actions.GenActivityAction"
-               menubarPath="FilePlugin.menu1/group1"
-               enablesFor="1"
-               id="FilePlugin.newAction">
-         </action>
          <action
                class="com.fileplugin.popup.actions.GenAdapterAction"
                enablesFor="1"
                id="FilePlugin.newAction2"
                label="genAdapter"
+               menubarPath="FilePlugin.menu1/group1">
+         </action>
+         <action
+               class="com.fileplugin.popup.actions.ShowIndosAction"
+               enablesFor="1"
+               id="FilePlugin.newAction3"
+               label="ShowIndos"
+               menubarPath="FilePlugin.menu1/group1">
+         </action>
+         <action
+               class="com.fileplugin.popup.actions.GenActivityAction"
+               enablesFor="1"
+               id="FilePlugin.newAction"
+               label="genActivity"
                menubarPath="FilePlugin.menu1/group1">
          </action>
       </objectContribution>
