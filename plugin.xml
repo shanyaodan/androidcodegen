@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+       adaptable="true"
+            objectClass="org.eclipse.core.resources.IFile"
+            id="FilePlugin.contribution1">
+         <menu
+               label="androidxml"
+               path="additions"
+               id="FilePlugin.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="genActivity"
+               class="com.fileplugin.popup.actions.GenActivityAction"
+               menubarPath="FilePlugin.menu1/group1"
+               enablesFor="1"
+               id="FilePlugin.newAction">
+         </action>
+         <action
+               class="com.fileplugin.popup.actions.GenAdapterAction"
+               enablesFor="1"
+               id="FilePlugin.newAction2"
+               label="genAdapter"
+               menubarPath="FilePlugin.menu1/group1">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
