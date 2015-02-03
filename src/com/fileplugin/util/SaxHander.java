@@ -9,7 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 
 public class SaxHander extends DefaultHandler{  
-    private List<NameValues> map = new ArrayList<NameValues>();  
+    private List<IdNamePair> map = new ArrayList<IdNamePair>();  
   
       
     @Override  
@@ -35,7 +35,7 @@ public class SaxHander extends DefaultHandler{
             }  
         }  
         if (id != null) {  
-            map.add(new NameValues(id, qName));  
+            map.add(new IdNamePair(id, qName));  
   
         }  
 //      System.out.println(id);  
@@ -43,7 +43,7 @@ public class SaxHander extends DefaultHandler{
   
     }  
   
-    public List<NameValues> getRes() {  
+    public List<IdNamePair> getRes() {  
         return map;  
   
     }  

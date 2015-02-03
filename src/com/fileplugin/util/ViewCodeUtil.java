@@ -27,16 +27,26 @@ public class ViewCodeUtil {
 			return null;
 		}
 
-		List<NameValues> res = mySax.getRes();
+		List<IdNamePair> res = mySax.getRes();
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb1 = new StringBuilder();
-		for (NameValues idNamePair : res) {
+		// sb.append("//---------- 开始定义域--------------\n");
+		//
+		// sb1.append("//----------开始initView方法------------------\n");
+		// sb1.append("public void initView() { \n");
+
+		for (IdNamePair idNamePair : res) {
 			String viewname = idNamePair.getId().replace("_data", "");
-			sb.append(" private " + idNamePair.getName() + "  " + viewname+ idNamePair.getName() + ";\n");
+			sb.append(" private " + idNamePair.getName() + "  " + viewname
+					+ idNamePair.getName() + ";\n");
+
 			sb1.append("    " + viewname + idNamePair.getName() + " = ("
 					+ idNamePair.getName() + ")findViewById(R.id."
 					+ idNamePair.getId() + ");\n");
 		}
+		// sb1.append("}\n");
+		// System.out.println(sb.toString());
+		// System.out.println(sb1.toString());
 		return new String[] { sb.toString(), sb1.toString(), };
 	}
 
@@ -55,14 +65,18 @@ public class ViewCodeUtil {
 			return null;
 		}
 
-		List<NameValues> res = mySax.getRes();
+		List<IdNamePair> res = mySax.getRes();
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
+		// sb.append("//---------- 开始定义域--------------\n");
+		//
+		// sb1.append("//----------开始initView方法------------------\n");
+		// sb1.append("public void initView() { \n");
 		sb2.append(entityName + " item =(" + entityName
 				+ ")mData.get(position);\n");
 
-		for (NameValues idNamePair : res) {
+		for (IdNamePair idNamePair : res) {
 			String viewname = idNamePair.getId().replace("_data", "");
 			sb.append("\npublic " + idNamePair.getName() + " " + viewname + ";");
 			sb1.append("vh." + viewname + " = (" + idNamePair.getName()
@@ -71,12 +85,17 @@ public class ViewCodeUtil {
 			if (idNamePair.getId().contains("_data")) {
 				if (idNamePair.getName().equals("TextView")) {
 					System.out.println("add textView");
-					sb2.append("vh." + viewname + ".setText(item." + viewname + ");\n");
+					sb2.append("vh." + viewname + ".setText(item." + viewname
+							+ ");\n");
 				}
 			}
 		}
-
-		genEntity(resFileName, entityName);
+		// sb1.append("}\n");
+		// System.out.println(sb.toString());
+		// System.out.println(sb1.toString());
+		if (null != entityName || entityName.length() > 0) {
+			genEntity(resFileName, entityName);
+		}
 
 		return new String[] { sb1.toString(), sb.toString(), sb2.toString() };
 	}
@@ -91,11 +110,12 @@ public class ViewCodeUtil {
 		try {
 			saxfac.newSAXParser().parse(f, mySax);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
 
-		List<NameValues> res = mySax.getRes();
+		List<IdNamePair> res = mySax.getRes();
 		try {
 
 			File entitypackage = new File(CommUtitl.projPath + "src/"
@@ -107,7 +127,7 @@ public class ViewCodeUtil {
 			FileOutputStream fo = new FileOutputStream(newentityFile);
 			StringBuilder sb = new StringBuilder();
 			sb.append("\n public class " + entityname + "{");
-			for (NameValues idNamePair : res) {
+			for (IdNamePair idNamePair : res) {
 				if (idNamePair.getId().contains("_data")) {
 					String viewname = idNamePair.getId().replace("_data", "");
 					sb.append("\npublic String  " + viewname + ";\n");
@@ -119,6 +139,12 @@ public class ViewCodeUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// sb.append("//---------- 开始定义域--------------\n");
+		// sb1.append("//----------开始initView方法------------------\n");
+		// sb1.append("public void initView() { \n");
+		// sb1.append("}\n");
+		// System.out.println(sb.toString());
+		// System.out.println(sb1.toString());
 	}
 
 }

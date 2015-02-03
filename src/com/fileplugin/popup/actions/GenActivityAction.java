@@ -32,7 +32,7 @@ public class GenActivityAction implements IObjectActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
-		EditDialog wd = new EditDialog(path,1);
+		EditDialog wd = new EditDialog(path, 1);
 		wd.setSize(400, 335);
 		wd.setVisible(true);
 	}

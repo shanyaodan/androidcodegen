@@ -23,11 +23,11 @@ public class Tempadapter extends SimpleAdapter{
 		if(null == convertView) {
 			vh= new ViewHolder();
 			convertView = mInflater.inflate(R.layout.itemlayout, null);
-			vhcontentinit
+			//vhcontentinit
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder)convertView.getTag();
-			setAdapterViewWithData			
+			//setAdapterViewWithData			
 		}		
 		return convertView;
 	}
@@ -35,7 +35,7 @@ public class Tempadapter extends SimpleAdapter{
 	
 	class ViewHolder {
 		
-		holdercontent
+		//holdercontent
 		
 	}
 	
