@@ -26,9 +26,6 @@ public class Test {
 				viewxmlpath.lastIndexOf("/") + 1,
 				viewxmlpath.lastIndexOf(".xml"));
 		try {
-			// String strs = Utils
-			// .fromInputStreamToString(new FileInputStream(new
-			// File("D:\\Users\\lenovo\\workspace7\\FilePlugin\\src\\temp\\Tempadapter.txt")));
 			File adapterparentfile = new File(CommUtitl.projPath + "src/"
 					+ CommUtitl.adapterPackageName);
 			if (!adapterparentfile.exists()) {
@@ -62,9 +59,7 @@ public class Test {
 					+CommUtitl.projPath.replace("/", ".") + "R;");
 			strs = strs.replace("//vhcontentinit", ss[0]);
 			strs = strs.replace("//holdercontent", ss[1]);
-			System.out.println("----getAdapterCode-" + ss[2]);
 			strs = strs.replace("//setAdapterViewWithData", ss[2]);
-			System.out.println(strs);
 			strs = strs.replace("itemlayout", xmlName);
 			strs = strs.replace("Tempadapter", CommUtitl.adapterName);
 			adapterparentfile = new File(CommUtitl.projPath + "src/"
@@ -78,7 +73,6 @@ public class Test {
 
 			fo.write(strs.getBytes("utf-8"));
 			fo.close();
-			System.out.println("sssss:" + adapterfile.getAbsolutePath());
 		} catch (Exception e) {
 			ILog log = Activator.getDefault().getLog();
 			log.log(new Status(IStatus.OK, Activator.PLUGIN_ID, e.getMessage()));
@@ -95,11 +89,7 @@ public class Test {
 				layoutFil.lastIndexOf("/") + 1, layoutFil.lastIndexOf("."));
 		System.out.println("sssss:" + viewxmlname);
 		try {
-			// System.out.println(fileURL.getPath());
-			// String strs = Utils
-			// .fromInputStreamToString(new FileInputStream(
-			// new File(
-			// "D:/Users/lenovo/workspace7/FilePlugin/src/temp/TempleteActivity1.txt")));
+
 			String strs = Utils.fromInputStreamToString(new FileInputStream(res
 					.getActivityResource()));
 			String ss[] = ViewCodeUtil.getCode(layoutFil);

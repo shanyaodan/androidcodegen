@@ -30,10 +30,6 @@ public class ViewCodeUtil {
 		List<IdNamePair> res = mySax.getRes();
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb1 = new StringBuilder();
-		// sb.append("//---------- 开始定义域--------------\n");
-		//
-		// sb1.append("//----------开始initView方法------------------\n");
-		// sb1.append("public void initView() { \n");
 
 		for (IdNamePair idNamePair : res) {
 			String viewname = idNamePair.getId().replace("_data", "");
@@ -44,9 +40,7 @@ public class ViewCodeUtil {
 					+ idNamePair.getName() + ")findViewById(R.id."
 					+ idNamePair.getId() + ");\n");
 		}
-		// sb1.append("}\n");
-		// System.out.println(sb.toString());
-		// System.out.println(sb1.toString());
+
 		return new String[] { sb.toString(), sb1.toString(), };
 	}
 
@@ -69,10 +63,6 @@ public class ViewCodeUtil {
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
-		// sb.append("//---------- 开始定义域--------------\n");
-		//
-		// sb1.append("//----------开始initView方法------------------\n");
-		// sb1.append("public void initView() { \n");
 		sb2.append(entityName + " item =(" + entityName
 				+ ")mData.get(position);\n");
 
@@ -90,9 +80,6 @@ public class ViewCodeUtil {
 				}
 			}
 		}
-		// sb1.append("}\n");
-		// System.out.println(sb.toString());
-		// System.out.println(sb1.toString());
 		if (null != entityName || entityName.length() > 0) {
 			genEntity(resFileName, entityName);
 		}
@@ -139,12 +126,6 @@ public class ViewCodeUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// sb.append("//---------- 开始定义域--------------\n");
-		// sb1.append("//----------开始initView方法------------------\n");
-		// sb1.append("public void initView() { \n");
-		// sb1.append("}\n");
-		// System.out.println(sb.toString());
-		// System.out.println(sb1.toString());
 	}
 
 }
