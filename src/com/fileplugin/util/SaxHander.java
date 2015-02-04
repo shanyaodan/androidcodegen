@@ -17,14 +17,10 @@ public class SaxHander extends DefaultHandler{
         super.startDocument();  
         map.clear();  
     }  
-  
-    
     
     @Override  
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {  
         super.startElement(uri, localName, qName, attributes);  
-//      System.out.println("-------------------------------------");  
-  
         String tempid = attributes.getValue("android:id");  
         String id = null;  
         if (tempid != null) {  
@@ -38,9 +34,6 @@ public class SaxHander extends DefaultHandler{
             map.add(new IdNamePair(id, qName));  
   
         }  
-//      System.out.println(id);  
-//      System.out.println(qName);  
-  
     }  
   
     public List<IdNamePair> getRes() {  
