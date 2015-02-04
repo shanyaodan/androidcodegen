@@ -1,0 +1,5 @@
+        <activity
+            android:name="actvityPackagePath"
+            >
+        </activity>
+    </application>
