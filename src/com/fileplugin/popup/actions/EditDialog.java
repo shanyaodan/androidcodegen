@@ -38,6 +38,9 @@ public class EditDialog extends JDialog {
 	}
 
 	public EditDialog(String path, int type) {
+		if (!path.endsWith(".xml")) {
+
+		}
 		this.path = path;
 		this.type = type;
 		// TODO Auto-generated constructor stub
@@ -100,34 +103,49 @@ public class EditDialog extends JDialog {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					CommUtitl.projPath = path.substring(0, path.indexOf("/res"))+ "/";
+					CommUtitl.projPath = path.substring(0, path.indexOf("/res"))
+							+ "/";
 					CommUtitl.entityName = getStr(entityName_data);
 					Properties props = new Properties();
 					try {
-						FileReader fr = new FileReader(new File(CommUtitl.projPath + "andgen.properties"));
+						FileReader fr = new FileReader(new File(
+								CommUtitl.projPath + "andgen.properties"));
 						props.load(fr);
 						fr.close();
 					} catch (Exception e1) {
 
 						e1.printStackTrace();
 					}
-					CommUtitl.projPackage = props.getProperty("projpackage","com/temp/proj");
-					CommUtitl.fragmentpackagename = props.getProperty("fragmentpackagename",CommUtitl.projPackage+	"/fragment");
-					CommUtitl.entityppackage = props.getProperty("entityppackage",CommUtitl.projPackage + "/entity");
-					CommUtitl.activitypackageName = props.getProperty("activitypackageName", CommUtitl.projPackage+ "/activity");
-					CommUtitl.adapterPackageName = props.getProperty("adapterPackageName", CommUtitl.projPackage+ "/adapter");
+					CommUtitl.projPackage = props.getProperty("projpackage",
+							"com/temp/proj");
+					CommUtitl.fragmentpackagename = props.getProperty(
+							"fragmentpackagename", CommUtitl.projPackage
+									+ "/fragment");
+					CommUtitl.entityppackage = props
+							.getProperty("entityppackage",
+									CommUtitl.projPackage + "/entity");
+					CommUtitl.activitypackageName = props.getProperty(
+							"activitypackageName", CommUtitl.projPackage
+									+ "/activity");
+					CommUtitl.adapterPackageName = props.getProperty(
+							"adapterPackageName", CommUtitl.projPackage
+									+ "/adapter");
 					CommUtitl.adapterName = getStr(adapterName_data);
 					if (null != CommUtitl.activitypackageName) {
-						CommUtitl.activitypackageName = CommUtitl.activitypackageName.replace(".", "/");
+						CommUtitl.activitypackageName = CommUtitl.activitypackageName
+								.replace(".", "/");
 					}
 					if (null != CommUtitl.entityppackage) {
-						CommUtitl.entityppackage = CommUtitl.entityppackage.replace(".", "/");
+						CommUtitl.entityppackage = CommUtitl.entityppackage
+								.replace(".", "/");
 					}
 					if (null != CommUtitl.fragmentpackagename) {
-						CommUtitl.fragmentpackagename = CommUtitl.fragmentpackagename.replace(".", "/");
+						CommUtitl.fragmentpackagename = CommUtitl.fragmentpackagename
+								.replace(".", "/");
 					}
 					if (null != CommUtitl.adapterPackageName) {
-						CommUtitl.adapterPackageName = CommUtitl.adapterPackageName.replace(".", "/");
+						CommUtitl.adapterPackageName = CommUtitl.adapterPackageName
+								.replace(".", "/");
 					}
 					System.out.println(CommUtitl.entityppackage);
 					System.out.println(CommUtitl.activitypackageName);
@@ -135,7 +153,7 @@ public class EditDialog extends JDialog {
 						Test.genActivity(path, CommUtitl.entityName);
 					} else if (type == 2) {
 						Test.genadapter(path);
-					} else if(type == 3) {
+					} else if (type == 3) {
 						Test.getFragment(path);
 					}
 					EditDialog.this.setVisible(false);
@@ -155,10 +173,6 @@ public class EditDialog extends JDialog {
 		}
 		return jEditorPane;
 	}
-	
-	
-	
-	
 
 	public String getStr(JTextField jf) {
 		if (null != jf && null != jf.getText()) {
