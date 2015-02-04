@@ -87,8 +87,11 @@ public class ViewCodeUtil {
 		return new String[] { sb1.toString(), sb.toString(), sb2.toString() };
 	}
 
+	
+	
+	
+	
 	public static void genEntity(String resFileName, String entityname) {
-		System.out.println("genentity:" + entityname);
 		File f = new File(resFileName);
 		if (!f.exists()) {
 			return;
@@ -104,7 +107,6 @@ public class ViewCodeUtil {
 
 		List<IdNamePair> res = mySax.getRes();
 		try {
-
 			File entitypackage = new File(CommUtitl.projPath + "src/"
 					+ CommUtitl.entityppackage);
 			if (!entitypackage.exists()) {
@@ -113,6 +115,7 @@ public class ViewCodeUtil {
 			File newentityFile = new File(entitypackage, entityname + ".java");
 			FileOutputStream fo = new FileOutputStream(newentityFile);
 			StringBuilder sb = new StringBuilder();
+			sb.append("package "+CommUtitl.entityppackage.replace("/", ".")+";");
 			sb.append("\n public class " + entityname + "{");
 			for (IdNamePair idNamePair : res) {
 				if (idNamePair.getId().contains("_data")) {

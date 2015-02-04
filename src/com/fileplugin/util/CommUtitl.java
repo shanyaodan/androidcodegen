@@ -7,10 +7,16 @@ public class CommUtitl {
 	
 	public static String activityname = "";
 	public static String activitypackageName = "";
+	
 	public static String entityppackage = "";
 	public static String entityName = "";
+	
 	public static String adapterName = "TempAdapter";
 	public static String adapterPackageName = "";
+	
+	public static String fragmentpackagename = "";
+	public static String fragmentname="";
+	
 	public String tempPath;
 
 

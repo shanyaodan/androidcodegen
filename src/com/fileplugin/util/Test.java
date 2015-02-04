@@ -37,11 +37,13 @@ public class Test {
 				String strs = Utils
 						.fromInputStreamToString(new FileInputStream(res
 								.getBaseAdapterResource()));
-				String packagname = CommUtitl.adapterPackageName.replace("/", ".")
-						.substring(0, CommUtitl.adapterPackageName.length());
-				strs = strs.replace("adapterpackageName", packagname + ";\nimport "
-						+ CommUtitl.projPath.replace("/", ".") + "R;");
-				
+				String packagname = CommUtitl.adapterPackageName.replace("/",".");
+				strs = strs.replace(
+						"adapterpackageName",
+						packagname + ";\nimport "
+								+ CommUtitl.projPackage.replace("/", ".")
+								+ ".R;");
+
 				FileOutputStream fout = new FileOutputStream(baseadapterfile);
 				fout.write(strs.getBytes("utf-8"));
 				fout.flush();
@@ -53,10 +55,10 @@ public class Test {
 					.getAdapterResource()));
 			String ss[] = ViewCodeUtil.getAdapterCode(viewxmlpath,
 					CommUtitl.entityName);
-			String packagname = CommUtitl.adapterPackageName.replace("/", ".")
-					.substring(0, CommUtitl.adapterPackageName.length());
-			strs = strs.replace("adapterPachagename", packagname + ";\nimport "
-					+CommUtitl.projPath.replace("/", ".") + "R;");
+			String packagname = CommUtitl.adapterPackageName.replace("/", ".");
+			strs = strs.replace("adapterPachagename", packagname);
+			strs = strs.replace("projPath",CommUtitl.projPackage.replace("/", "."));
+
 			strs = strs.replace("//vhcontentinit", ss[0]);
 			strs = strs.replace("//holdercontent", ss[1]);
 			strs = strs.replace("//setAdapterViewWithData", ss[2]);
@@ -74,9 +76,7 @@ public class Test {
 			fo.write(strs.getBytes("utf-8"));
 			fo.close();
 		} catch (Exception e) {
-			ILog log = Activator.getDefault().getLog();
-			log.log(new Status(IStatus.OK, Activator.PLUGIN_ID, e.getMessage()));
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 
@@ -94,32 +94,29 @@ public class Test {
 					.getActivityResource()));
 			String ss[] = ViewCodeUtil.getCode(layoutFil);
 			strs = strs.replace("//classStatement", ss[0]);
-			strs = strs.replace("//contentlayout", viewxmlname);
+			strs = strs.replace("contentlayout", viewxmlname);
 			strs = strs.replace("//findViewByIdscontent", ss[1]);
 
 			String packagname = CommUtitl.activitypackageName.replace("/", ".")
 					.substring(0, CommUtitl.activitypackageName.length());
 			strs = strs.replace("activityPackageName", packagname
-					+ ";\nimport " + CommUtitl.projPath.replace("/", ".") + "R;");
+					+ ";\nimport " + CommUtitl.projPackage.replace("/", ".")
+					+ ".R;");
 
 			String activityName = "";
 			if (null == CommUtitl.activityname
 					|| CommUtitl.activityname.trim().equals("")) {
-				activityName = getActivityName(layoutFil.substring(
+				activityName = getXMLClassName(layoutFil.substring(
 						layoutFil.lastIndexOf("/") + 1,
 						layoutFil.lastIndexOf(".")));
 			} else {
 				activityName = CommUtitl.activityname;
 			}
 			strs = strs.replace("TempleteActivity1", activityName);
-			// System.out.println("path path  :" + CommUtitl.projPath
-			// + "src/"+CommUtitl.activitypackageName + activityName + ".java");
-			File f = new File(CommUtitl.projPath + "src/"
-					+ CommUtitl.activitypackageName);
+			File f = new File(CommUtitl.projPath + "src/"+ CommUtitl.activitypackageName);
 			f.mkdirs();
 			File f2 = new File(f.getAbsolutePath() + "/" + activityName
 					+ ".java");
-			System.out.println("dfsdfsdf" + f2.getAbsolutePath());
 			f2.createNewFile();
 			FileOutputStream fo = new FileOutputStream(f2);
 			fo.write(strs.getBytes());
@@ -134,12 +131,59 @@ public class Test {
 		}
 	}
 
-	private static String getActivityName(String xmlname) {
+	public static void getFragment(String layoutFil) {
+
+		Resource res = new Resource();
+		String viewxmlname = layoutFil.substring(
+				layoutFil.lastIndexOf("/") + 1, layoutFil.lastIndexOf("."));
+		try {
+			String strs = Utils.fromInputStreamToString(new FileInputStream(res
+					.getFragmentResource()));
+			String ss[] = ViewCodeUtil.getCode(layoutFil);
+			strs = strs.replace("//classStatement", ss[0]);
+			strs = strs.replace("fragmentlayout", viewxmlname);
+			strs = strs.replace("//findViewByIdContent", ss[1]);
+			String packagname = CommUtitl.fragmentpackagename.replace("/", ".");
+			strs = strs.replace("fragmentPackageName", packagname);
+			strs = strs.replace("projectpackage", CommUtitl.projPackage.replace("/", "."));
+			String fragmentName = "";
+			if (null == CommUtitl.fragmentname
+					|| CommUtitl.fragmentname.trim().equals("")) {
+				fragmentName = getXMLClassName(layoutFil.substring(layoutFil.lastIndexOf("/") + 1,layoutFil.lastIndexOf(".")));
+			} else {
+				fragmentName = CommUtitl.fragmentname;
+			}
+			strs = strs.replace("TempleteFragment", fragmentName);
+			strs = strs.replace("findViewById(", "rootView.findViewById(");
+			File f = new File(CommUtitl.projPath + "src/"+ CommUtitl.fragmentpackagename);
+			f.mkdirs();
+			File f2 = new File(f.getAbsolutePath() + "/" + fragmentName + ".java");
+			f2.createNewFile();
+			FileOutputStream fo = new FileOutputStream(f2);
+			fo.write(strs.getBytes());
+			fo.close();
+			if (null != CommUtitl.entityName) {
+				ViewCodeUtil.genEntity(layoutFil, CommUtitl.entityName);
+			}
+		} catch (Exception e) {
+			System.out.println("Exception:Exception");
+			e.printStackTrace();
+		}
+
+	}
+
+	private static String getXMLClassName(String xmlname) {
+		String acitivyname = "";
+		try {
 		int num = xmlname.lastIndexOf("_");
 		String prfix = xmlname.substring(0, num);
 		String subfix = xmlname.substring(num + 1);
-		String acitivyname = CommUtitl.firstToupCast(subfix)
+		 acitivyname = CommUtitl.firstToupCast(subfix)
 				+ CommUtitl.firstToupCast(prfix);
+		}catch(Exception e) {
+			acitivyname =CommUtitl.firstToupCast(xmlname) ;
+		}
+		
 		return acitivyname;
 	}
 }

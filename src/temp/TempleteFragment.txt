@@ -1,0 +1,45 @@
+package fragmentPackageName;
+
+import android.app.fragment;
+import android.os.Bundle;
+import android.view.View;
+import android.support.v4.app.Fragment;
+import projectpackage.R;
+public class TempleteFragment extends Fragment {
+	private View rootView;
+	private Context context;
+	//classStatement
+
+
+	@Override
+	public View onCreateView(LayoutInflater inflater,
+			 ViewGroup container,  Bundle savedInstanceState) {
+		context = getActivity();
+		if (null == rootView) {
+			rootView = (ViewGroup) inflater.inflate(R.layout.fragmentlayout, null);
+			findViewByIds(rootView);
+			initViewWithData(rootView);
+
+		}
+		return rootView;
+	}
+	
+	private void findViewByIds(View rootView) {
+		//findViewByIdContent
+	}
+	
+	private void initViewWithData(View rootView) {
+		//initViewWithDatacontent
+	}
+	
+	
+	public void onDestroyView() {
+		if (rootView != null) {
+			ViewGroup parentViewGroup = (ViewGroup) rootView.getParent();
+			if (parentViewGroup != null) {
+				parentViewGroup.removeAllViews();
+			}
+		}
+	}
+
+}
