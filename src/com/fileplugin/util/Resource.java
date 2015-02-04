@@ -31,5 +31,11 @@ public class Resource {
 
 	}
 	
+	public String getManifastTag() throws IOException {
+		// 查找指定资源的URL
+		return Activator.getResourceString("temp/activity_plu.txt");
+		
+	}
+	
 	
 }

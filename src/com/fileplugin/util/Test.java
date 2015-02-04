@@ -37,7 +37,8 @@ public class Test {
 				String strs = Utils
 						.fromInputStreamToString(new FileInputStream(res
 								.getBaseAdapterResource()));
-				String packagname = CommUtitl.adapterPackageName.replace("/",".");
+				String packagname = CommUtitl.adapterPackageName.replace("/",
+						".");
 				strs = strs.replace(
 						"adapterpackageName",
 						packagname + ";\nimport "
@@ -57,7 +58,8 @@ public class Test {
 					CommUtitl.entityName);
 			String packagname = CommUtitl.adapterPackageName.replace("/", ".");
 			strs = strs.replace("adapterPachagename", packagname);
-			strs = strs.replace("projPath",CommUtitl.projPackage.replace("/", "."));
+			strs = strs.replace("projPath",
+					CommUtitl.projPackage.replace("/", "."));
 
 			strs = strs.replace("//vhcontentinit", ss[0]);
 			strs = strs.replace("//holdercontent", ss[1]);
@@ -83,26 +85,22 @@ public class Test {
 	}
 
 	public static void genActivity(String layoutFil, String entityname) {
-
 		Resource res = new Resource();
 		String viewxmlname = layoutFil.substring(
 				layoutFil.lastIndexOf("/") + 1, layoutFil.lastIndexOf("."));
 		System.out.println("sssss:" + viewxmlname);
 		try {
-
 			String strs = Utils.fromInputStreamToString(new FileInputStream(res
 					.getActivityResource()));
 			String ss[] = ViewCodeUtil.getCode(layoutFil);
 			strs = strs.replace("//classStatement", ss[0]);
 			strs = strs.replace("contentlayout", viewxmlname);
 			strs = strs.replace("//findViewByIdscontent", ss[1]);
-
 			String packagname = CommUtitl.activitypackageName.replace("/", ".")
 					.substring(0, CommUtitl.activitypackageName.length());
 			strs = strs.replace("activityPackageName", packagname
 					+ ";\nimport " + CommUtitl.projPackage.replace("/", ".")
 					+ ".R;");
-
 			String activityName = "";
 			if (null == CommUtitl.activityname
 					|| CommUtitl.activityname.trim().equals("")) {
@@ -113,7 +111,8 @@ public class Test {
 				activityName = CommUtitl.activityname;
 			}
 			strs = strs.replace("TempleteActivity1", activityName);
-			File f = new File(CommUtitl.projPath + "src/"+ CommUtitl.activitypackageName);
+			File f = new File(CommUtitl.projPath + "src/"
+					+ CommUtitl.activitypackageName);
 			f.mkdirs();
 			File f2 = new File(f.getAbsolutePath() + "/" + activityName
 					+ ".java");
@@ -125,14 +124,26 @@ public class Test {
 			if (null != entityname) {
 				ViewCodeUtil.genEntity(layoutFil, entityname);
 			}
+			String manifestData = Utils
+					.fromInputStreamToString(new FileInputStream(res
+							.getManifastTag()));
+			manifestData = manifestData.replace("actvityPackagePath",
+				CommUtitl.activitypackageName.replace("/", ".")+"."+activityName);
+			String manifestPath = CommUtitl.projPath + "AndroidManifest.xml";
+			File manifestFile = new File(manifestPath);
+			String manifestFileData = Utils.fromInputStreamToString(new FileInputStream(manifestFile));
+			manifestFile.exists();
+			manifestFileData = manifestFileData.replace("</application>", manifestData);
+			 manifestFile = new File(manifestPath);
+			FileOutputStream fout = new FileOutputStream(manifestFile);
+			fout.write(manifestFileData.getBytes("utf-8"));
+			fout.close();
 		} catch (Exception e) {
-			System.out.println("Exception:Exception");
 			e.printStackTrace();
 		}
 	}
 
 	public static void getFragment(String layoutFil) {
-
 		Resource res = new Resource();
 		String viewxmlname = layoutFil.substring(
 				layoutFil.lastIndexOf("/") + 1, layoutFil.lastIndexOf("."));
@@ -145,19 +156,24 @@ public class Test {
 			strs = strs.replace("//findViewByIdContent", ss[1]);
 			String packagname = CommUtitl.fragmentpackagename.replace("/", ".");
 			strs = strs.replace("fragmentPackageName", packagname);
-			strs = strs.replace("projectpackage", CommUtitl.projPackage.replace("/", "."));
+			strs = strs.replace("projectpackage",
+					CommUtitl.projPackage.replace("/", "."));
 			String fragmentName = "";
 			if (null == CommUtitl.fragmentname
 					|| CommUtitl.fragmentname.trim().equals("")) {
-				fragmentName = getXMLClassName(layoutFil.substring(layoutFil.lastIndexOf("/") + 1,layoutFil.lastIndexOf(".")));
+				fragmentName = getXMLClassName(layoutFil.substring(
+						layoutFil.lastIndexOf("/") + 1,
+						layoutFil.lastIndexOf(".")));
 			} else {
 				fragmentName = CommUtitl.fragmentname;
 			}
 			strs = strs.replace("TempleteFragment", fragmentName);
 			strs = strs.replace("findViewById(", "rootView.findViewById(");
-			File f = new File(CommUtitl.projPath + "src/"+ CommUtitl.fragmentpackagename);
+			File f = new File(CommUtitl.projPath + "src/"
+					+ CommUtitl.fragmentpackagename);
 			f.mkdirs();
-			File f2 = new File(f.getAbsolutePath() + "/" + fragmentName + ".java");
+			File f2 = new File(f.getAbsolutePath() + "/" + fragmentName
+					+ ".java");
 			f2.createNewFile();
 			FileOutputStream fo = new FileOutputStream(f2);
 			fo.write(strs.getBytes());
@@ -175,15 +191,15 @@ public class Test {
 	private static String getXMLClassName(String xmlname) {
 		String acitivyname = "";
 		try {
-		int num = xmlname.lastIndexOf("_");
-		String prfix = xmlname.substring(0, num);
-		String subfix = xmlname.substring(num + 1);
-		 acitivyname = CommUtitl.firstToupCast(subfix)
-				+ CommUtitl.firstToupCast(prfix);
-		}catch(Exception e) {
-			acitivyname =CommUtitl.firstToupCast(xmlname) ;
+			int num = xmlname.lastIndexOf("_");
+			String prfix = xmlname.substring(0, num);
+			String subfix = xmlname.substring(num + 1);
+			acitivyname = CommUtitl.firstToupCast(subfix)
+					+ CommUtitl.firstToupCast(prfix);
+		} catch (Exception e) {
+			acitivyname = CommUtitl.firstToupCast(xmlname);
 		}
-		
+
 		return acitivyname;
 	}
 }
