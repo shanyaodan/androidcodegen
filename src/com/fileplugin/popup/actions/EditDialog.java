@@ -18,9 +18,7 @@ import javax.swing.JTextField;
 
 import com.fileplugin.util.CommUtitl;
 import com.fileplugin.util.Test;
-
 public class EditDialog extends JDialog {
-
 	private JPanel jEditorPane = null;
 	private String path = "";
 	private int type;

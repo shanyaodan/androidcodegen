@@ -45,9 +45,6 @@ public class GenAdapterAction implements IObjectActionDelegate {
 		StructuredSelection treeSelection = (StructuredSelection) selection;
 		IResource iFile = (IResource) treeSelection.getFirstElement();
 		path = iFile.getLocation().toString();
-		System.out.println(iFile.getLocation());
-		System.out.println(iFile.getFullPath().toFile().getAbsolutePath());
-
 	}
 
 }
