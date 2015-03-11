@@ -63,6 +63,7 @@ public class ViewCodeUtil {
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
+		if(null!=entityName&&entityName.length()>0)
 		sb2.append(entityName + " item =(" + entityName
 				+ ")mData.get(position);\n");
 

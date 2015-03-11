@@ -27,8 +27,8 @@ public class Tempadapter extends SimpleAdapter{
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder)convertView.getTag();
-			//setAdapterViewWithData			
-		}		
+		}	
+		//setAdapterViewWithData	
 		return convertView;
 	}
 
