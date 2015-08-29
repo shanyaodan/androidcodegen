@@ -1,0 +1,23 @@
+package fragmentPackageName;
+
+import android.view.ViewGroup;
+
+import projectpackage.R;
+import fragmentPackageName.BaseFragment;
+/**
+ * Created by Administrator on 2015/6/26.
+ */
+public class TempFragment1 extends BaseFragment {
+    //classStatement;
+    @Override
+    public void initViews(ViewGroup rootView) {
+       //findViewByIdContent
+    }
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragmentlayout;
+    }
+    public void initViewWithEntity() {
+        //initViewWithDatas
+    }
+}

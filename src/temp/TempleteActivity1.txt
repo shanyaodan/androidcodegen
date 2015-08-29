@@ -1,4 +1,4 @@
-package activityPackageName
+package activityPackageName;
 
 import android.app.Activity;
 import android.os.Bundle;

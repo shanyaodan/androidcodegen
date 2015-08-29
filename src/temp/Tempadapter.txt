@@ -2,23 +2,41 @@ package adapterPachagename;
 
 import java.util.List;
 
-import adapterPachagename.SimpleAdapter;
+import adapterPachagename.MyBaseAdapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import java.util.List;
 import projPath.R;
-public class Tempadapter extends SimpleAdapter{
+import entityPath;
+
+public class Tempadapter extends MyBaseAdapter{
 
 	public Tempadapter(Context context, List<? extends Object> data) {
 		super(context, data);
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	public  int getLayoutId(){
+		return  R.layout.//itemlayout;
+	}
+    public  int[]getConvertItemIds(){
+		//entitycollection
+    }
+    public  void initViews(ViewHolder vh){
+		//initAdapterView
+    }
+
+
+
+
+
+
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
 		ViewHolder vh = null;
 		if(null == convertView) {
 			vh= new ViewHolder();
@@ -27,16 +45,16 @@ public class Tempadapter extends SimpleAdapter{
 			convertView.setTag(vh);
 		} else {
 			vh = (ViewHolder)convertView.getTag();
-		}	
-		//setAdapterViewWithData	
+		}
+		//setAdapterViewWithData
 		return convertView;
 	}
 
-	
+
 	class ViewHolder {
-		
+
 		//holdercontent
-		
+
 	}
 	
 	
