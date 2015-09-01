@@ -25,11 +25,7 @@ public class Tempadapter extends MyBaseAdapter{
     public  int[]getConvertItemIds(){
 		//entitycollection
     }
-<<<<<<< HEAD
-    public  void initViews(ViewHolder vh){
-=======
     public  void initViews(ViewHolder vh,int position){
->>>>>>> branch 'oldburanche' of https://github.com/shanyaodan/androidcodegen.git
 		//initAdapterView
     }
 	

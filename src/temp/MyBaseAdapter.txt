@@ -13,20 +13,20 @@ import java.util.List;
 public abstract class MyBaseAdapter extends android.widget.BaseAdapter {
 
 
-    private Context context;
-    private List entitys;
-    private LayoutInflater mInflater;
+    protected Context context;
+    protected List entitys;
+    protected LayoutInflater mInflater;
     public  MyBaseAdapter(Context context) {
     	 mInflater = LayoutInflater.from(context);
     	 this.context = context;
 		
 	}
-    public void setList(ArrayList data){
+    public void setList(List data){
     	 this.entitys = data;
     }
     
     
-    public  MyBaseAdapter(Context context,ArrayList data) {
+    public  MyBaseAdapter(Context context,List data) {
     	this(context);
         setList(data);
     }
