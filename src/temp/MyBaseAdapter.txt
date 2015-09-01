@@ -49,10 +49,11 @@ public abstract class MyBaseAdapter extends android.widget.BaseAdapter {
           for(int a=0;a<ids.length;a++) {
               vh.addView(convertView,ids[a]);
           }
+         convertView.setTag(vh);
         } else {
         vh = (ViewHolder)convertView.getTag();
         }
-         initViews(ViewHolder vh);
+         initViews(vh);
         return convertView;
     }
     public abstract int getLayoutId();
