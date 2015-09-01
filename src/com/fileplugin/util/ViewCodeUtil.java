@@ -30,7 +30,7 @@ public class ViewCodeUtil {
 		List<IdNamePair> res = mySax.getRes();
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb1 = new StringBuilder();
-
+		StringBuilder sb2 = new StringBuilder();
 		for (IdNamePair idNamePair : res) {
 			String viewname = idNamePair.getId().replace("_data", "");
 			sb.append(" private " + idNamePair.getName() + "  " + viewname
@@ -39,9 +39,12 @@ public class ViewCodeUtil {
 			sb1.append("    " + viewname + idNamePair.getName() + " = ("
 					+ idNamePair.getName() + ")findViewById(R.id."
 					+ idNamePair.getId() + ");\n");
+			if(idNamePair.getName().equals("TextView")&&idNamePair.getId().contains("_data")) {
+				sb2.append(viewname+".setText(entity." + viewname+");\n");
+			}
 		}
 
-		return new String[] { sb.toString(), sb1.toString(), };
+		return new String[] { sb.toString(), sb1.toString(),sb2.toString() };
 	}
 
 	public static String[] getAdapterCode(String resFileName, String entityName) {
@@ -63,9 +66,9 @@ public class ViewCodeUtil {
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
-		if(null!=entityName&&entityName.length()>0)
-		sb2.append(entityName + " item =(" + entityName
-				+ ")mData.get(position);\n");
+		if (null != entityName && entityName.length() > 0)
+			sb2.append(entityName + " item =(" + entityName
+					+ ")entitys.get(position);\n");
 
 		for (IdNamePair idNamePair : res) {
 			String viewname = idNamePair.getId().replace("_data", "");
@@ -88,10 +91,6 @@ public class ViewCodeUtil {
 		return new String[] { sb1.toString(), sb.toString(), sb2.toString() };
 	}
 
-	
-	
-	
-	
 	public static void genEntity(String resFileName, String entityname) {
 		File f = new File(resFileName);
 		if (!f.exists()) {
@@ -108,15 +107,15 @@ public class ViewCodeUtil {
 
 		List<IdNamePair> res = mySax.getRes();
 		try {
-			File entitypackage = new File(CommUtitl.projPath + "src/"
-					+ CommUtitl.entityppackage);
+			File entitypackage = new File(CommUtitl.getAbsolutePath(CommUtitl.entityRelativeDir));
 			if (!entitypackage.exists()) {
 				entitypackage.mkdirs();
 			}
 			File newentityFile = new File(entitypackage, entityname + ".java");
 			FileOutputStream fo = new FileOutputStream(newentityFile);
 			StringBuilder sb = new StringBuilder();
-			sb.append("package "+CommUtitl.entityppackage.replace("/", ".")+";");
+			sb.append("package " + CommUtitl.entityRelativeDir.replace("/", ".")
+					+ ";");
 			sb.append("\n public class " + entityname + "{");
 			for (IdNamePair idNamePair : res) {
 				if (idNamePair.getId().contains("_data")) {
@@ -132,4 +131,44 @@ public class ViewCodeUtil {
 		}
 	}
 
+	public static String[] getNewAdapterCode(String resFileName,
+			String entityName) {
+		File f = new File(resFileName);
+		if (!f.exists()) {
+			return null;
+		}
+		try {
+			saxfac.newSAXParser().parse(f, mySax);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		List<IdNamePair> res = mySax.getRes();
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb1 = new StringBuilder();
+		if (null != entityName && entityName.length() > 0) {
+			sb.append("return new int[]{");
+			sb1.append(entityName + " item =(" + entityName
+					+ ")entitys.get(position);\n");
+			for (IdNamePair idNamePair : res) {
+				sb.append("R.id." + idNamePair.getId() + ",");
+				if (idNamePair.getId().contains("_data")) {
+					if (idNamePair.getName().equals("TextView")) {
+						System.out.println("add textView");
+						String viewname = idNamePair.getId().replace("_data",
+								"");
+						sb1.append("((TextView)vh.getView("
+								+ idNamePair.getId() + ")).setText(item."
+								+ viewname + ");");
+					}
+				}
+			}
+			sb.append("};");
+		}
+		if (null != entityName || entityName.length() > 0) {
+			genEntity(resFileName, entityName);
+		}
+		return new String[] { sb.toString(), sb1.toString() };
+	}
 }

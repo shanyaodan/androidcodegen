@@ -8,6 +8,33 @@ import fragmentPackageName.BaseFragment;
  * Created by Administrator on 2015/6/26.
  */
 public class TempFragment1 extends BaseFragment {
+
+
+//	private Handler mHandler = new Handler() {
+//		@Override
+//		public void dispatchMessage(android.os.Message msg) {
+//			L.v(TAG, "dispatchMessage", msg.what);
+//			switch (msg.what) {
+//			case API.REQUEST_NO_NETWORK:
+//				clearWaiting();
+//				CommonUtils.showToast(R.string.network_error);
+//				break;
+//			case API.REQUEST_BEGIN:
+//				showWaiting();
+//				break;
+//			case API.REQUEST_SUCCESS:
+//				
+//				clearWaiting();
+//				break;
+//			case API.REQUEST_FAIL:
+//				
+//				clearWaiting();
+//				break;
+//			}
+//
+//		}
+//	};
+
     //classStatement;
     @Override
     public void initViews(ViewGroup rootView) {

@@ -1,4 +1,4 @@
-package adapterpackageName
+package adapterpackageName;
 
 import java.util.List;
 
@@ -15,13 +15,6 @@ public class SimpleAdapter extends BaseAdapter {
 	public LayoutInflater mInflater;
 	public List<? extends Object> mData;
 	public View mView;
-
-	public SimpleAdapter(Context context, List<? extends Object> data) {
-		this.mContext = context;
-		this.mData = data;
-		mInflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
 
 	public SimpleAdapter(Context context, List<? extends Object> data,
 			int resource) {

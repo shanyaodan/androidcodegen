@@ -16,10 +16,19 @@ public abstract class MyBaseAdapter extends android.widget.BaseAdapter {
     private Context context;
     private List entitys;
     private LayoutInflater mInflater;
-    public  MyBaseAdapter(Context context,List data) {
-        mInflater = LayoutInflater.from(context);
-        this.context = context;
-        this.entitys = entitys;
+    public  MyBaseAdapter(Context context) {
+    	 mInflater = LayoutInflater.from(context);
+    	 this.context = context;
+		
+	}
+    public void setList(ArrayList data){
+    	 this.entitys = data;
+    }
+    
+    
+    public  MyBaseAdapter(Context context,ArrayList data) {
+    	this(context);
+        setList(data);
     }
 
     @Override
@@ -53,12 +62,14 @@ public abstract class MyBaseAdapter extends android.widget.BaseAdapter {
         } else {
         vh = (ViewHolder)convertView.getTag();
         }
-         initViews(vh);
+         if(null!=vh) {
+         initViews(vh,position);
+         }
         return convertView;
     }
     public abstract int getLayoutId();
     public abstract int[]getConvertItemIds();
-    public abstract void initViews(ViewHolder vh);
+    public abstract void initViews(ViewHolder vh,int position);
   protected   class ViewHolder {
         SparseArray<View> viewArray = new SparseArray<View>();
         public void addView(View convertView, int id) {

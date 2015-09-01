@@ -25,7 +25,7 @@ public class Tempadapter extends MyBaseAdapter{
     public  int[]getConvertItemIds(){
 		//entitycollection
     }
-    public  void initViews(ViewHolder vh){
+    public  void initViews(ViewHolder vh,int position){
 		//initAdapterView
     }
 	
