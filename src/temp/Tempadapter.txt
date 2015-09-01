@@ -25,37 +25,8 @@ public class Tempadapter extends MyBaseAdapter{
     public  int[]getConvertItemIds(){
 		//entitycollection
     }
-    public  void initViews(ViewHolder vh){
+    public  void initViews(ViewHolder vh,int position){
 		//initAdapterView
     }
-
-
-
-
-
-
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder vh = null;
-		if(null == convertView) {
-			vh= new ViewHolder();
-			convertView = mInflater.inflate(R.layout.itemlayout, null);
-			//vhcontentinit
-			convertView.setTag(vh);
-		} else {
-			vh = (ViewHolder)convertView.getTag();
-		}
-		//setAdapterViewWithData
-		return convertView;
-	}
-
-
-	class ViewHolder {
-
-		//holdercontent
-
-	}
-	
 	
 }

@@ -101,58 +101,59 @@ public class EditDialog extends JDialog {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					CommUtitl.projPath = path.substring(0, path.indexOf("/res"))
-							+ "/";
+					CommUtitl.workspaceDir = path.substring(0, path.indexOf("/res"));
 					CommUtitl.entityName = getStr(entityName_data);
 					Properties props = new Properties();
 					try {
 						FileReader fr = new FileReader(new File(
-								CommUtitl.projPath + "andgen.properties"));
+								CommUtitl.workspaceDir + "/andgen.properties"));
 						props.load(fr);
 						fr.close();
 					} catch (Exception e1) {
 
 						e1.printStackTrace();
 					}
-					CommUtitl.projPackage = props.getProperty("projpackage",
-							"com/temp/proj");
-					CommUtitl.fragmentpackagename = props.getProperty(
-							"fragmentpackagename", CommUtitl.projPackage
+					CommUtitl.projectRelativeDir = props.getProperty("projpackage","com/temp/proj");
+					CommUtitl.fragmentRelativeDir = props.getProperty(
+							"fragmentpackagename", CommUtitl.projectRelativeDir
 									+ "/fragment");
-					CommUtitl.entityppackage = props
+					CommUtitl.entityRelativeDir = props
 							.getProperty("entityppackage",
-									CommUtitl.projPackage + "/entity");
-					CommUtitl.activitypackageName = props.getProperty(
-							"activitypackageName", CommUtitl.projPackage
+									CommUtitl.projectRelativeDir + "/entity");
+					CommUtitl.activityRelativeDir = props.getProperty(
+							"activitypackageName", CommUtitl.projectRelativeDir
 									+ "/activity");
-					CommUtitl.adapterPackageName = props.getProperty(
-							"adapterPackageName", CommUtitl.projPackage
+					CommUtitl.adapterRelativeDir = props.getProperty(
+							"adapterPackageName", CommUtitl.projectRelativeDir
 									+ "/adapter");
 					CommUtitl.adapterName = getStr(adapterName_data);
-					if (null != CommUtitl.activitypackageName) {
-						CommUtitl.activitypackageName = CommUtitl.activitypackageName
+					if (null != CommUtitl.adapterRelativeDir) {
+						CommUtitl.adapterRelativeDir = CommUtitl.adapterRelativeDir
 								.replace(".", "/");
 					}
-					if (null != CommUtitl.entityppackage) {
-						CommUtitl.entityppackage = CommUtitl.entityppackage
+					if (null != CommUtitl.entityRelativeDir) {
+						CommUtitl.entityRelativeDir = CommUtitl.entityRelativeDir
 								.replace(".", "/");
 					}
-					if (null != CommUtitl.fragmentpackagename) {
-						CommUtitl.fragmentpackagename = CommUtitl.fragmentpackagename
+					if (null != CommUtitl.fragmentRelativeDir) {
+						CommUtitl.fragmentRelativeDir = CommUtitl.fragmentRelativeDir
 								.replace(".", "/");
 					}
-					if (null != CommUtitl.adapterPackageName) {
-						CommUtitl.adapterPackageName = CommUtitl.adapterPackageName
+					if (null != CommUtitl.adapterRelativeDir) {
+						CommUtitl.adapterRelativeDir = CommUtitl.adapterRelativeDir
 								.replace(".", "/");
 					}
-					System.out.println(CommUtitl.entityppackage);
-					System.out.println(CommUtitl.activitypackageName);
+//					System.out.println(CommUtitl.entityppackage);
+//					System.out.println(CommUtitl.activitypackageName);
 					if (type == 1) {
 						Test.genActivity(path, CommUtitl.entityName);
 					} else if (type == 2) {
 						Test.genadapter(path);
 					} else if (type == 3) {
 						Test.getFragment(path);
+					} else if(type == 4) {
+						
+						
 					}
 					EditDialog.this.setVisible(false);
 				}

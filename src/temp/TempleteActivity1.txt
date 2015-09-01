@@ -5,6 +5,31 @@ import android.os.Bundle;
 import android.view.View;
 
 public class TempleteActivity1 extends Activity {
+   //	private Handler mHandler = new Handler() {
+//		@Override
+//		public void dispatchMessage(android.os.Message msg) {
+//			L.v(TAG, "dispatchMessage", msg.what);
+//			switch (msg.what) {
+//			case API.REQUEST_NO_NETWORK:
+//				clearWaiting();
+//				CommonUtils.showToast(R.string.network_error);
+//				break;
+//			case API.REQUEST_BEGIN:
+//				showWaiting();
+//				break;
+//			case API.REQUEST_SUCCESS:
+//				
+//				clearWaiting();
+//				break;
+//			case API.REQUEST_FAIL:
+//				
+//				clearWaiting();
+//				break;
+//			}
+//
+//		}
+//	};
+
 
 	//classStatement
 	@Override
