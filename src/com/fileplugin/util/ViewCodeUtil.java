@@ -159,7 +159,7 @@ public class ViewCodeUtil {
 						String viewname = idNamePair.getId().replace("_data",
 								"");
 						sb1.append("((TextView)vh.getView("
-								+ idNamePair.getId() + ")).setText(item."
+								+"R.id."+ idNamePair.getId() + ")).setText(item."
 								+ viewname + ");");
 					}
 				}
